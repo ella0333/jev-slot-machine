@@ -85,7 +85,9 @@ bankroll went on souvenirs rather than on the machine. Buying ends the trip, and
 leaving the machine again is a decision Jev makes back in the seat.
 
 Jev is told the last five things it bought, and only in the shop, so it does not
-pay twice for the same bottle of water.
+pay twice for the same bottle of water. Whatever Jev bought on the last trip over
+is also held off the menu for one visit and is back the visit after, because
+offered it again Jev bought the same thing two trips running.
 
 Every item also carries a `sense` of sensible, neutral or poor. That goes into
 the dataset, and it is never shown to Jev, because telling Jev which option is
