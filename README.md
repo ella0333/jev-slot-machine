@@ -4,11 +4,11 @@
 when to leave the machine and go spend some of it, and what to buy, and it keeps
 going until the money is gone.
 
-This runs Jev on your own computer. A page opens in your browser with the reels,
-the balance, what Jev is saying and what it has bought, and every decision Jev
-makes is written to a file as it happens.
+This runs Jev on your own computer. A page opens in your browser with the slot
+machine, the balance, and what Jev has bought, and every decision Jev makes is
+written to a file as it happens.
 
-The same thing runs all the time at [jevslots.live](https://jevslots.live/).
+You can watch it run live at [jevslots.live](https://jevslots.live/).
 
 ## Setup
 
