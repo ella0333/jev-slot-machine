@@ -34,7 +34,7 @@ At the machine:
 | `pace` | Score | How fast the button is pressed, which sets the real gap between spins |
 | `tilt` | Score | How much control is left |
 | `mutter` | Choice | Which written line gets said |
-| `action` | Choice | Stay, or go spend. Only asked when purchases are on and something is affordable |
+| `action` | Choice | Stay, or go spend. Only asked when purchases are on, something is affordable, and Jev has not bought anything in the last fifteen minutes |
 
 In the shop:
 
@@ -79,10 +79,15 @@ deposit box or an index fund would take cash off the balance and give nothing
 back, so it would read as the money vanishing rather than as Jev buying
 something. Every item is a thing Jev has or has done.
 
-A trip to the shop is one purchase. Jev is not asked whether to keep shopping,
-because left to decide Jev bought most of the menu in a few minutes and the
-bankroll went on souvenirs rather than on the machine. Buying ends the trip, and
-leaving the machine again is a decision Jev makes back in the seat.
+A trip to the shop is one purchase, and after one Jev stays at the machine for
+fifteen minutes before the question of getting up is put again. The question is
+asked on every spin, so without the cooldown Jev left the machine about once a
+minute and the page was a shopping feed with a slot machine in the corner.
+
+Jev is not asked whether to keep shopping either, because left to decide Jev
+bought most of the menu in a few minutes and the bankroll went on souvenirs
+rather than on the machine. Buying ends the trip, and leaving the machine again is
+a decision Jev makes back in the seat.
 
 Jev is told the last five things it bought, and only in the shop, so it does not
 pay twice for the same bottle of water. Whatever Jev bought on the last trip over
@@ -136,6 +141,6 @@ end of the run, and `python jev.py balance 50` is how it starts again.
 
 ## Cost
 
-There is one request per decision, and a decision every ten seconds or so
+There is one request per decision, and a decision every ten to thirty seconds
 depending on how fast Jev is playing. Nothing else in here calls out to
 anything. Running with `--dry` makes no requests at all.

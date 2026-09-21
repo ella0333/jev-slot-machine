@@ -8,7 +8,7 @@
  */
 
 const POLL_MS = 15_000;
-const SPIN_MS = 1400;
+const SPIN_MS = 2000;
 const REEL_STAGGER_MS = 240;
 const TILE = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--tile'));
 
