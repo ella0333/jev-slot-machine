@@ -41,7 +41,6 @@ In the shop:
 | Question | Type | Decides |
 | --- | --- | --- |
 | `purchase` | Choice | Which of the eight things on the menu Jev buys |
-| `after_purchase` | Choice | Keep shopping, or back to the machine |
 | `regret` | Score | How much Jev will regret it tomorrow |
 
 Everything that happens after the answer is ordinary code. A Choice comes back
@@ -80,9 +79,13 @@ deposit box or an index fund would take cash off the balance and give nothing
 back, so it would read as the money vanishing rather than as Jev buying
 something. Every item is a thing Jev has or has done.
 
-Jev is also told what it has already bought since leaving the slot machine, so
-it does not pay twice for the same bottle of water. That list is per trip and
-clears when Jev goes back to the machine.
+A trip to the shop is one purchase. Jev is not asked whether to keep shopping,
+because left to decide Jev bought most of the menu in a few minutes and the
+bankroll went on souvenirs rather than on the machine. Buying ends the trip, and
+leaving the machine again is a decision Jev makes back in the seat.
+
+Jev is told the last five things it bought, and only in the shop, so it does not
+pay twice for the same bottle of water.
 
 Every item also carries a `sense` of sensible, neutral or poor. That goes into
 the dataset, and it is never shown to Jev, because telling Jev which option is
@@ -117,7 +120,7 @@ afterwards.
 | Key | Default | |
 | --- | --- | --- |
 | `TYPESAFE_API_KEY` | | Your key |
-| `JEV_STARTING_BALANCE` | `1200` | What each run starts with |
+| `JEV_STARTING_BALANCE` | `5000` | What each run starts with |
 | `JEV_ALLOW_PURCHASES` | `true` | `false` keeps Jev in the seat with no shop |
 | `JEV_PORT` | `0` | `0` picks the first free port. Set a number to pin it |
 

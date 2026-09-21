@@ -11,7 +11,7 @@ ENV = os.path.join(ROOT, ".env")
 
 DEFAULTS = {
     "TYPESAFE_API_KEY": "",
-    "JEV_STARTING_BALANCE": "1200",
+    "JEV_STARTING_BALANCE": "5000",
     "JEV_ALLOW_PURCHASES": "true",
     "JEV_PORT": "0",
 }
