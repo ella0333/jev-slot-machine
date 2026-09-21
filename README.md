@@ -1,20 +1,15 @@
 # Jev slot machine
 
 [Jev](https://typesafe.ai/) plays a slot machine. It chooses how much to bet,
-when to leave the machine and go spend some of it, and what to buy, and it keeps
-going until the money is gone.
-
-This runs Jev on your own computer. A page opens in your browser with the slot
-machine, the balance, and what Jev has bought, and every decision Jev makes is
-written to a file as it happens.
+when to leave the machine and go spend some of it, and what to buy, and it continues
+running and only stops when the money is gone.
 
 You can watch it run live at [jevslots.live](https://jevslots.live/).
 
 ## Setup
 
-You need Node 20 or newer, Python 3.9 or newer, and a TypeSafe API key from
-[console.typesafe.ai/keys](https://console.typesafe.ai/keys). There is nothing
-to install with npm.
+Requirements: Node 20 or newer, Python 3.9 or newer, and a TypeSafe API key from
+[console.typesafe.ai/keys](https://console.typesafe.ai/keys). 
 
 ```
 git clone https://github.com/ella0333/jev-slot-machine
@@ -30,9 +25,6 @@ allowed to buy things.
 first free port it finds, so it will not clash with anything else you have
 running. Press Ctrl+C to stop it, and when you start it again it carries on from
 where it was.
-
-If you do not have a key yet, `python start.py --dry` runs everything on made up
-answers, so you can see how it works without spending anything.
 
 ## Commands
 
