@@ -45,9 +45,11 @@ In the shop:
 | `regret` | Score | How much Jev will regret it tomorrow |
 
 Everything that happens after the answer is ordinary code. A Choice comes back
-with a confidence attached, and when that confidence is too low the code falls
-back to a sensible default instead of acting on what was effectively a coin
-flip.
+with every option mapped to a probability, and `choice` is the highest of them,
+so the answer is the decision and the code acts on it. The confidence that comes
+with it is recorded alongside the outcome rather than used as a veto. Treating
+it as a threshold means replacing Jev's answer with a default, which is not
+reading the model, it is overruling it.
 
 ## The machine
 
