@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jev Slots</title>
+<meta name="description" content="An AI model plays a slot machine until the money runs out. Every spin is a real decision.">
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="/">
+      <svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 9v6M12 9v6M16 9v6"/></svg>
+      Jev Slots
+    </a>
+    <div class="nav-links">
+      <a href="https://jevslots.live/">The live one</a>
+    </div>
+  </nav>
+</div>
+
+<main class="wrap stage">
+
+  <!-- What Jev is doing right now, always visible. -->
+  <div class="status" id="status" data-mode="gambling" aria-live="polite">
+    <span class="dot"></span>
+    <span><b id="status-text">Jev is at the slot machine</b></span>
+    <span class="where" id="status-sub"></span>
+  </div>
+
+  <section class="cabinet">
+    <div class="marquee">
+      <h1 class="marquee-title">JEV <span>SLOTS</span></h1>
+      <p class="marquee-sub">Triple Diamond Deluxe &middot; 92.31% payback</p>
+    </div>
+
+    <div class="machine">
+      <div class="reels-shell" id="reels-shell">
+        <div class="reel" id="reel-0"><div class="reel-strip"></div></div>
+        <div class="reel" id="reel-1"><div class="reel-strip"></div></div>
+        <div class="reel" id="reel-2"><div class="reel-strip"></div></div>
+        <div class="payline" id="payline"></div>
+
+        <div class="win-banner" id="win-banner" aria-live="polite">
+          <span class="label" id="win-label">WIN</span>
+          <span class="amount" id="win-amount">$0</span>
+        </div>
+        <div class="coins" id="coins" aria-hidden="true"></div>
+      </div>
+
+      <!-- Pulls on every spin, so something is visibly being pressed. -->
+      <div class="handle" id="handle" aria-hidden="true">
+        <div class="handle-track"></div>
+        <div class="handle-arm"></div>
+        <div class="handle-knob"></div>
+      </div>
+    </div>
+
+    <dl class="readout">
+      <div><dt>Bet</dt><dd id="r-bet">$0.00</dd></div>
+      <div><dt>Last win</dt><dd id="r-win">nothing</dd></div>
+      <div><dt>Spins</dt><dd id="r-spin">0</dd></div>
+    </dl>
+
+    <div class="jev-line" aria-live="polite">
+      <p id="jev-text">Waiting for the first decision.</p>
+    </div>
+  </section>
+
+  <!-- Money, arranged so the arithmetic is visible rather than implied. -->
+  <section class="money" aria-label="Jev's money">
+    <div class="sum">
+      <div class="sum-cell">
+        <div class="sum-label">Started with</div>
+        <div class="sum-value" id="m-started">$0.00</div>
+      </div>
+      <div class="sum-cell">
+        <div class="sum-label">Won</div>
+        <div class="sum-value plus" id="m-won">$0.00</div>
+      </div>
+      <div class="sum-cell">
+        <div class="sum-label">Lost</div>
+        <div class="sum-value minus" id="m-lost">$0.00</div>
+      </div>
+      <div class="sum-cell">
+        <div class="sum-label">Added</div>
+        <div class="sum-value plus" id="m-added">$0.00</div>
+      </div>
+      <div class="sum-cell">
+        <div class="sum-label">Spent</div>
+        <div class="sum-value minus" id="m-spent">$0.00</div>
+      </div>
+    </div>
+
+    <div class="sum-total">
+      <span class="sum-label">Remaining</span>
+      <span class="sum-value" id="m-left">$0.00</span>
+    </div>
+    <p class="sum-note" id="m-alltime"></p>
+  </section>
+
+  <!-- Only shown once the money is gone. -->
+  <section class="panel bust" id="panel-bust" hidden>
+    <div class="panel-head" style="justify-content:center">
+      <svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 15h8M9 9h.01M15 9h.01"/></svg>
+      Out of money
+    </div>
+    <p class="plea" id="bust-line">&nbsp;</p>
+    <p class="need">
+      Run <code>python jev.py balance 100</code> to put more in,
+      or <code>python jev.py restart</code> for a new run.
+    </p>
+  </section>
+
+  <section class="panel" id="panel-shop" hidden>
+    <div class="panel-head">
+      <svg class="i" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+      Jev is out spending
+    </div>
+    <div id="shop-feed"></div>
+  </section>
+
+  <section class="panel" id="panel-bought" hidden>
+    <div class="panel-head">
+      <svg class="i" viewBox="0 0 24 24"><path d="M3 6h18l-1.5 13.5A2 2 0 0 1 17.5 21h-11a2 2 0 0 1-2-1.5z"/><path d="M8 6V4h8v2"/></svg>
+      What Jev has bought
+    </div>
+    <div id="bought-list"></div>
+  </section>
+
+  <p class="fineprint">
+    A simulation. No real money and no real gambling.
+    Watch the original at <a href="https://jevslots.live/">jevslots.live</a>.
+  </p>
+
+</main>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="g-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffeaad"/><stop offset="0.5" stop-color="#f5c542"/><stop offset="1" stop-color="#b8860b"/>
+    </linearGradient>
+    <linearGradient id="g-red" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff8080"/><stop offset="1" stop-color="#cf1f1f"/>
+    </linearGradient>
+    <linearGradient id="g-diamond" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="0.45" stop-color="#8ef0fb"/><stop offset="1" stop-color="#2394a8"/>
+    </linearGradient>
+
+    <symbol id="sym-BLANK" viewBox="0 0 64 64"></symbol>
+    <symbol id="sym-CHERRY" viewBox="0 0 64 64">
+      <path d="M34 10c6 6 12 10 20 11" stroke="#46d17f" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M34 10c-4 9-9 14-14 20" stroke="#46d17f" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <circle cx="19" cy="41" r="12" fill="url(#g-red)"/>
+      <circle cx="44" cy="44" r="11" fill="url(#g-red)"/>
+      <ellipse cx="15" cy="36" rx="3.5" ry="2.4" fill="#fff" opacity="0.55"/>
+    </symbol>
+    <symbol id="sym-BAR1" viewBox="0 0 64 64">
+      <rect x="8" y="25" width="48" height="16" rx="3" fill="url(#g-gold)"/>
+      <text x="32" y="37" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="900" fill="#3a2600">BAR</text>
+    </symbol>
+    <symbol id="sym-BAR2" viewBox="0 0 64 64">
+      <rect x="8" y="17" width="48" height="13" rx="3" fill="url(#g-gold)"/>
+      <text x="32" y="27" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="900" fill="#3a2600">BAR</text>
+      <rect x="8" y="35" width="48" height="13" rx="3" fill="url(#g-gold)"/>
+      <text x="32" y="45" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="900" fill="#3a2600">BAR</text>
+    </symbol>
+    <symbol id="sym-BAR3" viewBox="0 0 64 64">
+      <rect x="8" y="11" width="48" height="12" rx="3" fill="url(#g-gold)"/>
+      <text x="32" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="900" fill="#3a2600">BAR</text>
+      <rect x="8" y="26" width="48" height="12" rx="3" fill="url(#g-gold)"/>
+      <text x="32" y="35" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="900" fill="#3a2600">BAR</text>
+      <rect x="8" y="41" width="48" height="12" rx="3" fill="url(#g-gold)"/>
+      <text x="32" y="50" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="900" fill="#3a2600">BAR</text>
+    </symbol>
+    <symbol id="sym-SEVEN" viewBox="0 0 64 64">
+      <path d="M17 12h30l-16 40h-11l15-31H17z" fill="url(#g-red)" stroke="#ffd9d9" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="sym-DIAMOND" viewBox="0 0 64 64">
+      <path d="M32 6 58 28 32 58 6 28z" fill="url(#g-diamond)"/>
+      <path d="M32 6 43 28H21zM6 28h15l11 30zM58 28H43L32 58z" fill="#fff" opacity="0.2"/>
+      <path d="M32 6 58 28 32 58 6 28z" fill="none" stroke="#e8ffff" stroke-width="2"/>
+    </symbol>
+  </defs>
+</svg>
+
+<script src="/assets/js/machine.js" type="module"></script>
+</body>
+</html>

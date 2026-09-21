@@ -1,0 +1,16 @@
+{
+  "name": "jev-slot-machine",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "An AI model plays a slot machine until the money runs out.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "dry": "node server.mjs --dry",
+    "rtp": "node scripts/rtp.mjs"
+  }
+}
