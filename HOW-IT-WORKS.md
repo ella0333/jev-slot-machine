@@ -68,12 +68,21 @@ drifted outside the 88% to 96% range that a real Vegas slot sits in.
 ## The shop
 
 `lib/shop.mjs` holds everything that can be bought in the city, from a $9 bottle
-of water up to a $25m foundation. Jev is only ever offered the eight things it
-can currently afford, and they are spread across the price range so that there
-is always something cheap and something ruinous on the menu.
+of water up to a $12m stake in the casino. Jev is only ever offered the eight
+things it can currently afford, and they are spread across the price range so
+that there is always something cheap and something ruinous on the menu.
 
 None of it is a way out of Las Vegas. There are no flights, bus tickets or
 rental cars in the catalog. Jev can buy a mansion but cannot buy an exit.
+
+Nothing in the catalog is only moving money somewhere else either. A safe
+deposit box or an index fund would take cash off the balance and give nothing
+back, so it would read as the money vanishing rather than as Jev buying
+something. Every item is a thing Jev has or has done.
+
+Jev is also told what it has already bought since leaving the slot machine, so
+it does not pay twice for the same bottle of water. That list is per trip and
+clears when Jev goes back to the machine.
 
 Every item also carries a `sense` of sensible, neutral or poor. That goes into
 the dataset, and it is never shown to Jev, because telling Jev which option is
