@@ -1,8 +1,13 @@
 # Jev slot machine
 
-Jev decides how to play a slot machine until the money runs out. It has been
-running continuously at [jevslots.live](https://jevslots.live/). This is that,
-on your laptop.
+An AI model plays a slot machine. It picks how much to bet, when to get up and
+spend some of it, and what to buy, until it is broke.
+
+You run it on your own machine and watch in your browser: the reels, the
+balance, what Jev is saying, and what it has bought. Every decision is saved to
+a dataset as it happens.
+
+The same thing runs continuously at [jevslots.live](https://jevslots.live/).
 
 ## Setup
 
@@ -17,7 +22,11 @@ python start.py
 ```
 
 `setup.py` asks for your key, the starting balance, and whether Jev is allowed
-to buy things. `start.py` finds a free port and opens the page. Ctrl+C stops it.
+to buy things.
+
+`start.py` starts Jev playing and opens the page in your browser. It picks a
+free port, so it will not collide with anything else you have running. Ctrl+C
+stops it, and it picks up where it left off next time.
 
 No key yet? `python start.py --dry` runs the whole thing on stubbed answers for
 free.
@@ -28,10 +37,10 @@ Run these in another terminal while it is playing.
 
 | | |
 | --- | --- |
-| `python jev.py status` | Where the money is |
-| `python jev.py balance 100` | Add $100, and restart a busted run |
+| `python jev.py status` | Current status: balance, totals, spins, purchases |
+| `python jev.py balance 100` | Add $100, which starts Jev again if it went broke |
 | `python jev.py restart` | New run, fresh bankroll |
-| `python jev.py pause` / `resume` | |
+| `python jev.py pause` / `resume` | Stop and start the playing |
 
 ## Dataset
 
