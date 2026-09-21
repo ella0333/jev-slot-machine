@@ -2,26 +2,29 @@
 
 ## Jev
 
-Jev is a System One model from [TypeSafe](https://typesafe.ai/). Not a chat
-model. You hand it a situation and a typed question, and it returns a decision
-with a probability on every option you offered. Three things about it shape all
-the code here.
+Jev is a System One model from [TypeSafe](https://typesafe.ai/). It does not
+hold a conversation. You give it a situation and a typed question, and it gives
+back a decision with a probability on each of the options you offered it. Three
+things about how it works shape most of the code here.
 
-It cannot generate text. Every line Jev appears to say is written down in
-`lib/lines.mjs`, and Jev picks one with a Choice over a pool that code has
-already narrowed to the moment it is in.
+It cannot generate text, so every line Jev appears to say is written down in
+`lib/lines.mjs`. Jev picks one of them with a Choice, from a pool that the code
+has already narrowed down to the situation Jev is in.
 
-It cannot do arithmetic. No question asks Jev to compare or total anything. Bet
-options are named rungs, `minimum` through `max`, whose dollar figures and
-percentages are worked out in `lib/questions.mjs` before Jev sees them.
+It cannot do arithmetic, so no question asks it to compare or total anything.
+The bet options are named rungs, `minimum` through `max`, and their dollar
+figures and percentages are worked out in `lib/questions.mjs` before Jev sees
+them.
 
-It gets worse with context it does not need. The state it reads is small and
-every field in it is something a question refers to.
+It gets less accurate when it is given context it does not need, so the state it
+reads is kept small and every field in it is something one of the questions
+refers to.
 
 ## The questions
 
-One request per turn with every question in it. The model reads the situation
-once and answers all of them against it in parallel.
+Each turn is one request with every question for that turn in it. Jev reads the
+situation once and answers all of them against it at the same time, which is
+cheaper and quicker than asking one at a time.
 
 At the machine:
 
@@ -41,40 +44,42 @@ In the shop:
 | `after_purchase` | Choice | Keep shopping, or back to the machine |
 | `regret` | Score | How much Jev will regret it tomorrow |
 
-Everything after the answer is ordinary code. A Choice comes back with a
-confidence, and where the code needs a decision it can act on it takes a
-fallback below the floor rather than treating a coin flip as an answer.
+Everything that happens after the answer is ordinary code. A Choice comes back
+with a confidence attached, and when that confidence is too low the code falls
+back to a sensible default instead of acting on what was effectively a coin
+flip.
 
 ## The machine
 
-Three reels, one payline, 32 stop virtual strips. Real machines carry the house
-edge in the strips rather than the paytable: good symbols appear once, blanks
-appear many times. The third reel here holds one seven where the others hold
-two, which is the standard way near misses are manufactured, and it is why two
-jackpot symbols land together far more often than three.
+The machine has three reels, one payline, and 32 stop virtual strips. Real
+machines carry their house edge in those strips rather than in the paytable: the
+good symbols appear once on a strip and the blanks appear many times over. The
+third reel here holds one seven where the other two hold two of them, which is
+the usual way near misses are produced, and it is why two jackpot symbols land
+together much more often than three do.
 
-Payback is 92.31%, house edge 7.69%, and 17.79% of spins pay something. Those
-are not sampled. `npm run rtp` walks all 32,768 stop combinations, prints the
-exact numbers, and fails if the machine has drifted outside the 88% to 96% a
-real Vegas slot sits in.
+The payback is 92.31%, the house edge is 7.69%, and 17.79% of spins pay
+something. These are not sampled figures. `npm run rtp` works through all 32,768
+stop combinations and prints the exact numbers, and it fails if the machine has
+drifted outside the 88% to 96% range that a real Vegas slot sits in.
 
 ## The shop
 
-`lib/shop.mjs` holds everything in the city, from a $9 bottle of water to a $25m
-foundation. Jev is only offered the eight things it can currently afford, spread
-across the price range so there is always something cheap and something ruinous
-on the menu.
+`lib/shop.mjs` holds everything that can be bought in the city, from a $9 bottle
+of water up to a $25m foundation. Jev is only ever offered the eight things it
+can currently afford, and they are spread across the price range so that there
+is always something cheap and something ruinous on the menu.
 
-Nothing in it is a way out of Las Vegas. No flight, no bus ticket, no rental
-car. Jev can buy a mansion and cannot buy an exit.
+None of it is a way out of Las Vegas. There are no flights, bus tickets or
+rental cars in the catalog. Jev can buy a mansion but cannot buy an exit.
 
-Each item carries a `sense` of sensible, neutral or poor. It goes into the
-dataset and is never shown to Jev, because telling Jev which option is the
-sensible one would be answering the question.
+Every item also carries a `sense` of sensible, neutral or poor. That goes into
+the dataset, and it is never shown to Jev, because telling Jev which option is
+the sensible one would be answering the question for it.
 
 ## The dataset
 
-One line per decision in `data/dataset-YYYY-MM-DD.jsonl`:
+Each decision is one line in `data/dataset-YYYY-MM-DD.jsonl`:
 
 ```json
 {"at":1758400000000,"run":1,"spin_count":214,"kind":"spin","mode":"gambling",
@@ -83,18 +88,20 @@ One line per decision in `data/dataset-YYYY-MM-DD.jsonl`:
  "usage":{...},"answers":{...}}
 ```
 
-`outcome` is what happened. `answers` is the response exactly as TypeSafe
-returned it, including the full distribution over every option Jev was offered,
-so you can see what Jev nearly did as well as what it did. Nothing is rounded or
-collapsed.
+`outcome` is what actually happened. `answers` is the response exactly as
+TypeSafe returned it, including the probability it put on every option Jev was
+offered, so you can see what Jev nearly did as well as what it did. Nothing is
+rounded or summarised.
 
-Runs are numbered and the number is on every row, so a fresh bankroll never
-reads as a continuation of the last one. Purchases are also kept in
-`data/ledger.json`, which is what the page reads for the list at the bottom.
+Runs are numbered and the run number is on every row, so a fresh bankroll never
+reads as a continuation of the previous one. Purchases are also kept in
+`data/ledger.json`, which is what the page reads to build the list at the
+bottom.
 
 ## Config
 
-`setup.py` writes `.env`. Edit it by hand afterwards if you like.
+`setup.py` writes these into `.env`, and you can edit that file by hand
+afterwards.
 
 | Key | Default | |
 | --- | --- | --- |
@@ -105,14 +112,14 @@ reads as a continuation of the last one. Purchases are also kept in
 
 ## What is not here
 
-The live site takes donations, which is how Jev keeps playing after a bad night.
-None of that is here: no Ko-fi, no webhook, no donor names and so no name
-moderation, no second API key. Jev does not beg either, since there is nobody to
-beg. Running out of money is the end of the run, and `python jev.py balance 50`
-is how it starts again.
+The live site takes donations, which is how Jev keeps playing there after a bad
+night. None of that is in here. There is no Ko-fi, no webhook, no donor names
+and so no name moderation, and no second API key for anything. Jev does not beg
+here either, since there is nobody to beg. Running out of money is simply the
+end of the run, and `python jev.py balance 50` is how it starts again.
 
 ## Cost
 
-One request per decision, and a decision every ten seconds or so depending on
-how fast Jev is playing. Nothing else calls out anywhere. `--dry` calls nothing
-at all.
+There is one request per decision, and a decision every ten seconds or so
+depending on how fast Jev is playing. Nothing else in here calls out to
+anything. Running with `--dry` makes no requests at all.
