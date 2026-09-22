@@ -10,7 +10,6 @@
   },
   "scripts": {
     "start": "node server.mjs",
-    "dry": "node server.mjs --dry",
     "rtp": "node scripts/rtp.mjs"
   }
 }

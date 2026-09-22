@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Start the machine and open it in a browser. Ctrl+C stops it.
 
-    python start.py           play for real
-    python start.py --dry     stubbed answers, no API calls, no key needed
+    python start.py           play
     python start.py --no-open do not open a browser
 """
 

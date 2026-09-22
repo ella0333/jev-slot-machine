@@ -142,5 +142,6 @@ end of the run, and `python jev.py balance 50` is how it starts again.
 ## Cost
 
 There is one request per decision, and a decision every ten to thirty seconds
-depending on how fast Jev is playing. Nothing else in here calls out to
-anything. Running with `--dry` makes no requests at all.
+depending on how fast Jev is playing. Nothing else in here calls out to anything.
+Every decision is the model's: there is no offline or stubbed mode, so nothing
+here ever invents an answer on Jev's behalf.

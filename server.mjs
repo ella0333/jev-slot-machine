@@ -25,9 +25,8 @@ const FIRST_PORT = 8787;
 const PORT_ATTEMPTS = 40;
 
 const cfg = await config();
-const dry = process.argv.includes('--dry');
 
-if (!cfg.apiKey && !dry) {
+if (!cfg.apiKey) {
   console.error('No TYPESAFE_API_KEY. Run: python setup.py');
   process.exit(1);
 }
@@ -48,7 +47,7 @@ function exclusive(fn) {
 async function runTick() {
   return exclusive(async () => {
     try {
-      await tick(state, { config: cfg, dry, log: (m) => console.log(m) });
+      await tick(state, { config: cfg, log: (m) => console.log(m) });
     } catch (e) {
       console.error(`tick failed: ${e.message}`);
     }
@@ -252,7 +251,6 @@ await writeJSON('port', { port, pid: process.pid, startedAt: Date.now() });
 
 console.log(`Jev is playing at http://127.0.0.1:${port}`);
 console.log(`Purchases ${cfg.allowPurchases ? 'on' : 'off'}, dataset in ${path.relative(ROOT, DATA_DIR)}${path.sep}`);
-if (dry) console.log('Dry run: answers are stubbed and no API calls are made.');
 
 await runTick();
 const timer = setInterval(runTick, cfg.tickSeconds * 1000);
