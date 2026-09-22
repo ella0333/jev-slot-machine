@@ -67,9 +67,12 @@ drifted outside the 88% to 96% range that a real Vegas slot sits in.
 ## The shop
 
 `lib/shop.mjs` holds everything that can be bought in the city, from a $9 bottle
-of water up to a $12m stake in the casino. Jev is only ever offered the eight
-things it can currently afford, and they are spread across the price range so
-that there is always something cheap and something ruinous on the menu.
+of water up to a $12m stake in the casino. Jev is only ever offered eight things
+that cost a quarter of the bankroll or less, spread across the price range so
+that there is always something cheap and something ruinous on the menu. That
+ceiling is the same idea as the one on the bet ladder: offered everything it
+could afford outright, Jev put most of a night on one cabana. The menu grows
+back as Jev wins.
 
 None of it is a way out of Las Vegas. There are no flights, bus tickets or
 rental cars in the catalog. Jev can buy a mansion but cannot buy an exit.
