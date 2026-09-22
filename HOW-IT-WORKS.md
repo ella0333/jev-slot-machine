@@ -34,7 +34,7 @@ At the machine:
 | `pace` | Score | How fast the button is pressed, which sets the real gap between spins |
 | `tilt` | Score | How much control is left |
 | `mutter` | Choice | Which written line gets said |
-| `action` | Choice | Stay, or go spend. Only asked when purchases are on, something is affordable, and Jev has not bought anything in the last fifteen minutes |
+| `action` | Choice | Stay, or go spend. Only asked when purchases are on, something is affordable, and Jev has been at the machine ten minutes |
 
 In the shop:
 
@@ -82,10 +82,12 @@ deposit box or an index fund would take cash off the balance and give nothing
 back, so it would read as the money vanishing rather than as Jev buying
 something. Every item is a thing Jev has or has done.
 
-A trip to the shop is one purchase, and after one Jev stays at the machine for
-fifteen minutes before the question of getting up is put again. The question is
-asked on every spin, so without the cooldown Jev left the machine about once a
-minute and the page was a shopping feed with a slot machine in the corner.
+A trip to the shop is one purchase, and Jev plays for ten minutes before getting
+up is on the table again. The question is put on every spin, so with nothing
+holding Jev in the seat it came round about once a minute and the page was a
+shopping feed with a slot machine in the corner. The cooldown runs from sitting
+down rather than from the purchase, so it covers the trip Jev just got back
+from.
 
 Jev is not asked whether to keep shopping either, because left to decide Jev
 bought most of the menu in a few minutes and the bankroll went on souvenirs
